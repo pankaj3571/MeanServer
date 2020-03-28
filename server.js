@@ -40,7 +40,7 @@ const PORT=3000;
 const route=require('./routes/routes')
 var bodyparser=require('body-parser')
 var cors=require('cors');
-mongoose.connect('mongodb://localhost:27017/test',{ useNewUrlParser: true },(err)=>{
+mongoose.connect('mongodb://localhost:27017/registerdata',{ useNewUrlParser: true },(err)=>{
     if(err) throw err
     console.log('connected to db')
 })

@@ -19,7 +19,7 @@ module.exports={
         if(data ==null){
                 registerData.save().then(data1=>{
                     if(data1){
-                        res.json({status:true,data:data,message:"data save successfully"})
+                        res.json({status:true,data:data1,message:"data save successfully"})
                     }else{
                         req.json({status:false,message:"something went wrong"})
                     }

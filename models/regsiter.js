@@ -6,5 +6,5 @@ var registerDetails=new Schema({
         mob:{type:Number},
         password:{type:String}
 })
-var registerModel=mongoose.model('registerdata',registerDetails)
+var registerModel=mongoose.model('registerdatas',registerDetails)
 module.exports=registerModel

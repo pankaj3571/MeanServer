@@ -1,6 +1,7 @@
 var registerModel=require('../models/regsiter');
 var crypto = require('crypto');
-var algorithm = 'aes-256-ctr', secret="onlineDemoClass@1234#0001"
+var algorithm = 'aes-256-ctr', secret="onlineDemoClass@1234#0001";
+var jwt=require('jsonwebtoken')
 module.exports={
 
     register:async(req,res)=>{
@@ -16,7 +17,7 @@ module.exports={
 
       await registerModel.findOne({name:req.body.username}).select('name').lean().then(data=>{
         //   console.log(data)
-        if(data ==null){
+        if(!data){
                 registerData.save().then(data1=>{
                     if(data1){
                         res.json({status:true,data:data1,message:"data save successfully"})
@@ -47,15 +48,25 @@ module.exports={
     },
 
     login:(req,res)=>{
-             registerModel.findOne({username: req.body.username}).then(username=>{
-                 
-                if(username) {
-                    console.log('userfind')
+        registerModel.findOne({name: req.body.username}).then(data=>{
+           
+               
+            if(data){
+                if(decrypt(data.password)==req.body.password){
+                    var token=jwt.sign({_id:data._id},secret,{expiresIn:'1h'})
+                    res.json({status:true,token:token})
                 }else{
-                    console.log('user not exist')
+                    res.json({status:false,message:"username and password are not matched"})
                 }
+            }else{
+                res.json({status:false,message:"username not found"})
+            }
+     
+            
+        })
+      
 
-             })
+
     }
 }
 

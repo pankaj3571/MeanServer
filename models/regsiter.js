@@ -4,7 +4,8 @@ var registerDetails=new Schema({
         name:{type:String},
         email:{type:String},
         mob:{type:Number},
-        password:{type:String}
+        password:{type:String},
+        
 })
 var registerModel=mongoose.model('registerdatas',registerDetails)
 module.exports=registerModel

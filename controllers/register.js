@@ -12,7 +12,8 @@ module.exports={
             name:req.body.username,
             email:req.body.email,
             mob:req.body.mobile,
-            password:encrypt(req.body.password)
+            password:encrypt(req.body.password),
+           
         })
 
       await registerModel.findOne({name:req.body.username}).select('name').lean().then(data=>{
@@ -35,8 +36,10 @@ module.exports={
 
     },
     getData:(req,res)=>{
+
         registerModel.find().then(data=>{
             if(data){
+                
                 res.json({status:true,data:data})
             }else{
                 res.json({status:false,message:"Something went wrong"})
@@ -44,6 +47,8 @@ module.exports={
         }).catch((err)=>{
             console.log(err)
         })
+       
+       
         
     },
 
@@ -66,6 +71,42 @@ module.exports={
       
 
 
+    },
+
+    update:(req,res)=>{
+        var setValue={
+            $set:{
+                name:req.body.username,
+                mob:req.body.mobile,
+                email:req.body.email
+            }
+        }
+            console.log(setValue)
+        registerModel.updateOne({_id:req.body.id},setValue).then(data=>{
+            console.log(data)
+            if(data){
+                res.json({status:true,message:"data successfully updated"})
+            }else{
+                res.json({status:false,message:"something went wrong"})
+
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
+    },
+
+    deleteData:(req,res)=>{
+        var  id=req.body.id;
+
+        registerModel.deleteOne({_id:id}).then(data=>{
+            if(data){
+                res.json({status:true,message:" data deleted successfully"})
+            }else{
+                res.json({status:false,message:"something went wrong"})
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
 }
 

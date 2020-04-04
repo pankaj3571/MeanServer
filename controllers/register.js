@@ -97,7 +97,7 @@ module.exports={
 
     deleteData:(req,res)=>{
         var  id=req.body.id;
-
+        console.log(id);
         registerModel.deleteOne({_id:id}).then(data=>{
             if(data){
                 res.json({status:true,message:" data deleted successfully"})

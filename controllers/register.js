@@ -48,8 +48,7 @@ module.exports={
     },
 
     login:(req,res)=>{
-        registerModel.findOne({name: req.body.username}).then(data=>{
-           
+        registerModel.findOne({name: req.body.username}).then(data=>{          
                
             if(data){
                 if(decrypt(data.password)==req.body.password){
